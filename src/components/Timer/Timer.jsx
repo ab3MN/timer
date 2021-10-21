@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { interval, Subject } from "rxjs";
+import { takeUntil } from "rxjs/operators";
 import { Stack, IconButton, Button } from "@mui/material";
 import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
 import PauseCircleOutlineIcon from "@mui/icons-material/PauseCircleOutline";
@@ -34,13 +36,18 @@ const Timer = () => {
   };
 
   useEffect(() => {
-    let interval = null;
-    isTimerOn
-      ? (interval = setInterval(() => {
+    const unsubscribe = new Subject();
+    interval(1000)
+      .pipe(takeUntil(unsubscribe))
+      .subscribe(() => {
+        if (isTimerOn) {
           setTime((prev) => prev + 1);
-        }, 1000))
-      : clearInterval(interval);
-    return () => clearInterval(interval);
+        }
+      });
+    return () => {
+      unsubscribe.next();
+      unsubscribe.complete();
+    };
   }, [isTimerOn]);
 
   const [lap, setLap] = useState([]);
