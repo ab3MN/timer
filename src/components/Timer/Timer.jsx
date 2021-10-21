@@ -37,8 +37,8 @@ const Timer = () => {
     let interval = null;
     isTimerOn
       ? (interval = setInterval(() => {
-          setTime((prev) => prev + 10);
-        }, 10))
+          setTime((prev) => prev + 1);
+        }, 1000))
       : clearInterval(interval);
     return () => clearInterval(interval);
   }, [isTimerOn]);
@@ -63,12 +63,12 @@ const Timer = () => {
   };
 
   return (
-    <section className={style.stopwatch}>
+    <section className={style.timer}>
       <div className={style.circle}>
         <p className={style.time}>
-          {`0${Math.floor((time / 60000) % 60)}`.slice(-2)}:
-          {`0${Math.floor((time / 1000) % 60)}`.slice(-2)}:
-          {`0${(time / 10) % 100}`.slice(-2)}
+          {`0${Math.floor(time / 3600)}`.slice(-2)}:
+          {`0${Math.floor(time / 60) % 60}`.slice(-2)}:
+          {`0${time % 60}`.slice(-2)}
         </p>
       </div>
       <Stack className={style.controls} direction='row' spacing={1}>
