@@ -59,7 +59,6 @@ const Timer = () => {
   const handleReset = () => {
     setTime(0);
     setLap([]);
-    setTimerOn(false);
   };
 
   return (
