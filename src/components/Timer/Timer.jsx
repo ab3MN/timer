@@ -24,7 +24,17 @@ const Timer = () => {
   const [time, setTime] = useState(0);
   const [isTimerOn, setTimerOn] = useState(false);
 
+  const handleStart = () => {
+    if (!isTimerOn) {
+      return;
+    }
+    setTimerOn(true);
+  };
+
   const handleStop = () => {
+    if (isTimerOn) {
+      return;
+    }
     setTimerOn(false);
     setTime(0);
   };
@@ -78,10 +88,7 @@ const Timer = () => {
         </p>
       </div>
       <Stack className={style.controls} direction='row' spacing={1}>
-        <IconButton
-          onClick={() => setTimerOn(true)}
-          color='secondary'
-          size='large'>
+        <IconButton onClick={handleStart} color='secondary' size='large'>
           <PlayCircleOutlineIcon sx={iconStyle} />
         </IconButton>
         <IconButton onClick={handleStop} color='secondary' size='large'>
