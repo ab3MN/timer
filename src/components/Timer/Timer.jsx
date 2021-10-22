@@ -25,14 +25,14 @@ const Timer = () => {
   const [isTimerOn, setTimerOn] = useState(false);
 
   const handleStart = () => {
-    if (!isTimerOn) {
+    if (isTimerOn) {
       return;
     }
     setTimerOn(true);
   };
 
   const handleStop = () => {
-    if (isTimerOn) {
+    if (!isTimerOn) {
       return;
     }
     setTimerOn(false);
